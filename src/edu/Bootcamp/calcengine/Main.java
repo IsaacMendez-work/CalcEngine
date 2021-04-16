@@ -36,7 +36,7 @@ System.out.println("\nUsing an if-statement to run a calculation engine.\n");
 
 /*
 Since in the above example, the same variable is used to run the if-statement, we can convert the statement to a switch statement pretty easily.
- */
+
 System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 //      Just declaring some variables to work with here. This is basically our input field.
         double value1 = 100.0d;
@@ -63,6 +63,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
         }
 
         System.out.println(result);
+ */
 
 
     }
