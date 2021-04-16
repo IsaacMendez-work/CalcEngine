@@ -14,11 +14,13 @@ public class Main {
             result = value1 + value2;
 //      's' for subtract
         else if (opCode == 's') result = value1 - value2;
+//      'm' for multiplying
         else if (opCode == 'm') result = value1 * value2;
+//      'd' for dividing
         else if (opCode == 'd')
             {if (value2 != 0)
-                result = value1 / value2;
-            else result = 54321d;
+                result = value1 / value2; // this extra if statement is because numbers can't be divided by 0, it messes with the code. So we're just returning 0 when that happens:
+            else result = 0d;
             }
         else {
             System.out.println("Invalid opCode: " + opCode);
