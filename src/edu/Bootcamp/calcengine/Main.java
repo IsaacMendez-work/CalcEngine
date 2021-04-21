@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
 /*
+    public static void main(String[] args) {
 //      This calculation engine will take two values and returns a result.
 System.out.println("\nUsing an if-statement to run a calculation engine.\n");
 //      Just declaring some variables to work with here. This is basically our input field.
@@ -39,6 +39,7 @@ System.out.println("\nUsing an if-statement to run a calculation engine.\n");
 
 
 /*
+    public static void main(String[] args) {
 //      This calculation engine will take two values and returns a result.
 //      Since in the above example, the same variable is used to run the if-statement, we can convert the statement to a switch statement pretty easily.
 
@@ -76,6 +77,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 /*
+    public static void main(String[] args) {
 //      This calculation engine will take a range of values and returns a result.
 //      Here, we will be using arrays to allow us to pick from several different calculations.
         double[] leftValues = {100, 25, 225, 11, 44};
@@ -113,6 +115,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 /*
+    public static void main(String[] args) {
 //      To improve the calculator engine, we will be breaking the switch out to its own method, so the code is cleaner, more reusable, and more coder-friendly.
 //      The first thing to do it declare the arrays again.
         double[] leftVal = {100, 25, 225, 11, 5};
@@ -156,6 +159,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 /*
+    public static void main(String[] args) {
 //      Now we will set the CalcEngine to run in the command line, and to accept arguments (if provided).
 //      First, we declare our arrays again.
         double[] leftVal = {100, 25, 225, 11};
@@ -226,23 +230,33 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 //      In this step, we will be adding String-capabilities to the CalcEngine. Specifically, we'll be adding a method (in addition to the first method that loops through the predetermined set of arrays, and the second method that allows a user to input an opCode and two numeric values from the command line to run the app).
 //      This third method will allow the user to input full operation names rather than the opCode. Also, add a fourth function to allow the use of some numbers in word form.
 
+    public static void main(String[] args) {
 //      First, we declare our arrays for the first method's use:
         double[] leftVal = {100, 25, 225, 11};
         double[] rightVal = {50, 92, 17, 3};
         char[] opCode = {'d', 'a', 's', 'm'};
         double[] result = new double[opCode.length];
 
-//      Here is the first method:
+//      Here is the first method, if the user provides no arguments:
         if (args.length == 0) {
             for (int i = 0; i < opCode.length; i++) {
                 result[i] = executeUserInput(opCode[i], leftVal[i], rightVal[i]);
             }
             for (double currentResult : result) System.out.println(currentResult);
 
-//      Here is the second method:
-        } else if (args.length == 3) handleCommandLine(args);
+//      Here is the second method, if the user provides three arguments:
+        } else if (args.length == 3) {
+            handleCommandLine(args);
 
-        else System.out.println("Please provide an operation code and 2 numeric values.\nNOTE: Operation codes are a for addition, s for subtraction, m for multiplication, and d for division.");
+//      Here is the third method, the one for using Strings:
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("INterACTive")) {
+            executeInteractively();
+//      To use Strings, we'll need to use the executeInteractively method below, and we'll run that if the user input is the word "interactive"
+
+        } else System.out.println("Please provide an operation code and 2 numeric values.\nNOTE: Operation codes are a for addition, s for subtraction, m for multiplication, and d for division.");
+//      NOTE: To run this, we can do so in the command line as specified in the previous example of the calculator, but we can also add arguments in IntelliJ by selecting Run from the menu above, selecting Edit Configurations..., and adding arguments to the Program Arguments field. Then just run the program.
+
+
     }
 
 
@@ -341,7 +355,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 //        Now that we have an equivalent to the char opCode, double leftVal, and double rightVal that we needed to use function one's code, we just need to run it through that method!
         double result = executeUserInput(operationFromArray, leftValFromArray, rightValFromArray);
-        
+
         System.out.println(result);
     }
 
