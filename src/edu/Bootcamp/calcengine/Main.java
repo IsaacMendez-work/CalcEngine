@@ -300,7 +300,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
                 break;
             }
         }
-        return value; 
+        return value;
     }
 
 }
