@@ -154,7 +154,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 
-
+/*
 //      Now we will set the CalcEngine to run in the command line, and to accept arguments (if provided).
 //      First, we declare our arrays again.
         double[] leftVal = {100, 25, 225, 11};
@@ -217,6 +217,90 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
                 break;
         }
         return result;
+*/
 
+
+
+
+//      In this step, we will be adding String-capabilities to the CalcEngine. Specifically, we'll be adding a method (in addition to the first method that loops through the predetermined set of arrays, and the second method that allows a user to input an opCode and two numeric values from the command line to run the app).
+//      This third method will allow the user to input full operation names rather than the opCode. Also, add a fourth function to allow the use of some numbers in word form.
+
+//      First, we declare our arrays for the first method's use:
+        double[] leftVal = {100, 25, 225, 11};
+        double[] rightVal = {50, 92, 17, 3};
+        char[] opCode = {'d', 'a', 's', 'm'};
+        double[] result = new double[opCode.length];
+
+//      Here is the first method:
+        if (args.length == 0) {
+            for (int i = 0; i < opCode.length; i++) {
+                result[i] = execute(opCode[i], leftVal[i], rightVal[i]);
+            }
+            for (double currentResult : result) System.out.println(currentResult);
+
+//      Here is the second method:
+        } else if (args.length == 3) handleCommandLine(args);
+
+        else System.out.println("Please provide an operation code and 2 numeric values.\nNOTE: Operation codes are a for addition, s for subtraction, m for multiplication, and d for division.");
     }
+
+
+
+//      Function one's code:
+    static double execute(char opCode, double leftVal, double rightVal) {
+        double result;
+        switch (opCode) {
+            case 'a': result = leftVal + rightVal; break;
+            case 's': result = leftVal - rightVal; break;
+            case 'm': result = leftVal * rightVal; break;
+            case 'd': result = (rightVal != 0) ? leftVal / rightVal : 0.0d; break;
+            default: System.out.println(opCode + " is an invalid input."); result = 0.0d; break;
+        }
+        return result;
+    }
+
+
+
+//      Function two's code:
+    private static void handleCommandLine(String[] args) {
+        char opCode = args[0].charAt(0);
+        double leftVal = Double.parseDouble(args[1]);
+        double rightVal = Double.parseDouble(args[2]);
+        double result = execute(opCode, leftVal, rightVal);
+        System.out.println(result);
+    }
+
+
+
+//      Function three's code:
+//      The first thing to do there is to translate the words the user will input into words that Java can understand. For example, we'll need to convert the word "multiply" to an opCode.
+    static char opCodeFromString(String operationName) {
+//      This first line is us adding a function named opCodeFromString whose return type is a char (since the return will have to be an opCode, and they are all chars). The function will accept a single String as the parameter, which we'll call operationName.
+
+//      The next thing we'll need to do is populate the body of the function. In this case, we're going to start by taking the String we receive and converting it to the opCode variable defined in the first function.
+//      There are a variety of ways to do this, and my first impulse was to convert whole words like "addition" and "add" and "adding" equal to the opCode 'a', but there's an easier way in this situation. We can just pull the first letter of the word and use that to determine which opCode to set it equal to:
+        char firstChar = operationName.charAt(0); // This is a zero-point index!!
+//      Lastly, we need to return the first character of the String, which should be the same as the opCode.
+        return firstChar;
+//      NOTE: Since the only thing we did in this function was declare a variable and return that variable, this method's body could be simplified to "return operationName.charAt(0);". However, for the sake of clarity, we're doing this the long way.
+    }
+
+
+//      Function four's code:
+//      Similarly to function three, if we want to convert words to numbers we're going declare function, and we'll be looking for a double.
+    double valueFromWord(String wordNumber) {
+//      There are many ways convert words to numbers, but in this case we'll just use the first ten numbers for, and we'll define them in an array.
+        String[] wordNumberArray = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+//      Since arrays are zero-based, and we started out array at "zero", instead of comparing wordNumberArray to a second array we will just assign the value of wordNumberArray to their corrisponding place in the zero-based array. ("zero" is [0], "one" is [1], etc.)
+        double value = 0d;
+        for (int index = 0; index < wordNumberArray.length; index++) { // This has us loop through the array until we come to the word the user typed
+            if (wordNumber.equals(wordNumberArray[index])) {
+                value = index;
+                // Here we declare that is the value of the input is the same as its position in the array (again, "seven" = [7]), then we will exit the loop.
+                break;
+            }
+        }
+        return value; 
+    }
+
 }
