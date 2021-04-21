@@ -1,4 +1,5 @@
 package edu.Bootcamp.calcengine;
+import java.util.Scanner;
 
 public class Main {
 
@@ -120,13 +121,13 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
         double[] result = new double[opCode.length];
 
         for (int i = 0; i < opCode.length; i++) {
-            result[i] = execute(opCode[i], leftVal[i], rightVal[i]);
+            result[i] = executeUserInput(opCode[i], leftVal[i], rightVal[i]);
         }
         for(double currentResult : result) System.out.println(currentResult);
     }
 
 //      In its own class, we will have the switch statement.
-    static double execute(char opCode, double leftVal, double rightVal) {
+    static double executeUserInput(char opCode, double leftVal, double rightVal) {
         double result;
         switch (opCode) {
             case 'a':
@@ -165,7 +166,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 //      Next, we will have the code that was running in the above example run only if there are no arguments present. To do this, we will check the number of arguments, as declared in the "public static void main(String[] args) {...}" part of the program.
         if (args.length == 0) {
             for (int i = 0; i < opCode.length; i++) {
-                result[i] = execute(opCode[i], leftVal[i], rightVal[i]);
+                result[i] = executeUserInput(opCode[i], leftVal[i], rightVal[i]);
         }
             for (double currentResult : result) System.out.println(currentResult);
         } else if (args.length == 3) handleCommandLine(args);
@@ -175,14 +176,14 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 //      Here we have the method for handling inputs in the command line.
     private static void handleCommandLine(String[] args) {
-//      Since this method accepts an array of strings as defined by the String[] above, we will have to take the inputs, change them from strings to a char and two doubles so that the execute method below can use the switch statement to calculate the result.
+//      Since this method accepts an array of strings as defined by the String[] above, we will have to take the inputs, change them from strings to a char and two doubles so that the executeUserInput function can use the switch statement to calculate the result.
         char opCode = args[0].charAt(0);
 //      Here we are changing the first argument from the command line from a string to a char, then assigning that value to opCode.
         double leftVal = Double.parseDouble(args[1]);
         double rightVal = Double.parseDouble(args[2]);
 //      This is one of Java's built-in functions. It changes the string into a double, and this will be for second and third arguments.
 
-        double result = execute(opCode, leftVal, rightVal);
+        double result = executeUserInput(opCode, leftVal, rightVal);
 //      Here we are using the method below to assign the arguments and return a result. Lastly, we just print the result:
         System.out.println(result);
     }
@@ -196,7 +197,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 //      Here we have the method for the switch that we'll be using to calculate.
-    static double execute(char opCode, double leftVal, double rightVal) {
+    static double executeUserInput(char opCode, double leftVal, double rightVal) {
         double result;
         switch (opCode) {
             case 'a':
@@ -234,7 +235,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 //      Here is the first method:
         if (args.length == 0) {
             for (int i = 0; i < opCode.length; i++) {
-                result[i] = execute(opCode[i], leftVal[i], rightVal[i]);
+                result[i] = executeUserInput(opCode[i], leftVal[i], rightVal[i]);
             }
             for (double currentResult : result) System.out.println(currentResult);
 
@@ -247,7 +248,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 //      Function one's code:
-    static double execute(char opCode, double leftVal, double rightVal) {
+    static double executeUserInput(char opCode, double leftVal, double rightVal) {
         double result;
         switch (opCode) {
             case 'a': result = leftVal + rightVal; break;
@@ -266,7 +267,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
         char opCode = args[0].charAt(0);
         double leftVal = Double.parseDouble(args[1]);
         double rightVal = Double.parseDouble(args[2]);
-        double result = execute(opCode, leftVal, rightVal);
+        double result = executeUserInput(opCode, leftVal, rightVal);
         System.out.println(result);
     }
 
@@ -287,8 +288,8 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 //      Function four's code:
-//      Similarly to function three, if we want to convert words to numbers we're going declare function, and we'll be looking for a double.
-    double valueFromWord(String wordNumber) {
+//      Similarly to function three, if we want to convert words to numbers we're going declare function, we need to declare a static function and be sure it's a double (since method one's code is set to accept doubles).
+    static double valueFromWord(String wordNumber) {
 //      There are many ways convert words to numbers, but in this case we'll just use the first ten numbers for, and we'll define them in an array.
         String[] wordNumberArray = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 //      Since arrays are zero-based, and we started out array at "zero", instead of comparing wordNumberArray to a second array we will just assign the value of wordNumberArray to their corrisponding place in the zero-based array. ("zero" is [0], "one" is [1], etc.)
@@ -301,6 +302,47 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
             }
         }
         return value;
+    }
+
+
+//  Method five's code:
+    static void executeInteractively() {
+//      This will be interacting with the user, so the first thing we should do is print out a message with instructions.
+        System.out.println("Enter an operation and two numbers: ");
+//      Above, we used Java's built-in System.out method to send information to the user. We could use Java's built-in System.in method to receive information from the user, but a more convenient (less work for us) thing to do is to use a type called Scanner.
+//      To use Scanner, right under our package (located on line 1), we're going to import Scanner capability by typing in import java.util.Scanner;
+//      After doing that, we can return here to our code and use Scanner the same way we use String.
+        Scanner firstScanner = new Scanner(System.in);
+//      What we've done here is use Scanner to take care of the details of System.in so we can get the input from the user.
+//      Next, we can set Scanner to read all the input from the user until it reaches the end of the line (in most cases, until the Enter key is pressed) by using firstScanner.nextLine();
+        String userInput = firstScanner.nextLine();
+//      Here we've taken the input from the user (using the expression on the right) ad set it equal to a String named userInput.
+
+//      Next, we want to break apart userInput so that something like "subtract three five" is broken in to one word we can use to find an opCode and two words we can use to get our integers. In that example, the char dividing the words is the space between "subtract" and "three" and "five".
+        String[] partsArray = userInput.split(" ");
+//      Here, we've split what the user inputs based on the spaces between words. This will return a String array.
+
+        performOperation(partsArray);
+//      Lastly, we'll be want to use partsArray to use those the three split inputs to perform an operation. For that, we're going to need another method.
+    }
+
+
+
+//  Method six's code:
+    private static void performOperation(String[] partsArray) {
+//      Example user input: divide nine three
+        char operationFromArray = opCodeFromString(partsArray[0]);
+//      Here we're taking the first word in the partsArray, running it through our opCodeFromString function to figure out what opCode "divide" is for, then setting it equal to a char variable.
+
+        double leftValFromArray = valueFromWord(partsArray[1]);
+//      Here we're taking the second word in the partsArray, running it through valueFromWord to figure out what number "nine" is, then setting that value equal to a double variable.
+        double rightValFromArray = valueFromWord(partsArray[2]);
+//      Here we are doing the same as in leftValFromArray
+
+//        Now that we have an equivalent to the char opCode, double leftVal, and double rightVal that we needed to use function one's code, we just need to run it through that method!
+        double result = executeUserInput(operationFromArray, leftValFromArray, rightValFromArray);
+        
+        System.out.println(result);
     }
 
 }
