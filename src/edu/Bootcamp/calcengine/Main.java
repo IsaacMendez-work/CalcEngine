@@ -441,7 +441,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 //      Method five's code:
     static void executeInteractively() {
-        System.out.println("Enter an operation and two numbers: ");
+        System.out.println("Enter an operation and two numbers in words: ");
         Scanner scan5 = new Scanner(System.in);
         String userInput5 = scan5.nextLine();
         String[] partsArray5 = userInput5.split(" ");
@@ -493,7 +493,6 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 //      Note, however, that StringBuilder is not itself a string, so we have to set its value equal to a String variable, then call that variable:
         String output8 = builder8.toString();
         System.out.println(output8);
-
     }
 
 
