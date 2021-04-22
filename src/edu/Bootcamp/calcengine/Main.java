@@ -226,7 +226,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 
-
+/*
 //      In this step, we will be adding String-capabilities to the CalcEngine. Specifically, we'll be adding a method (in addition to the first method that loops through the predetermined set of arrays, and the second method that allows a user to input an opCode and two numeric values from the command line to run the app).
 //      This third method will allow the user to input full operation names rather than the opCode. Also, add a fourth function to allow the use of some numbers in word form.
 
@@ -341,7 +341,6 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
     }
 
 
-
 //  Method six's code:
     private static void performOperation(String[] partsArray) {
 //      Example user input: divide nine three
@@ -358,5 +357,145 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
         System.out.println(result);
     }
+*/
+
+
+
+
+//      Here, we will be providing the users with some context of the information we're printing out, rather just accept input and display a result. (For example, the whole equation)
+    public static void main(String[] args) {
+        double[] leftVal0 = {100, 25, 225, 11};
+        double[] rightVal0 = {50, 92, 17, 3};
+        char[] opCode0 = {'d', 'a', 's', 'm'};
+        double[] result0 = new double[opCode0.length];
+
+//      Here is the first method, if the user provides no arguments:
+        if (args.length == 0) {
+            for (int index0 = 0; index0 < opCode0.length; index0++) {
+                result0[index0] = executeUserInput(opCode0[index0], leftVal0[index0], rightVal0[index0]);
+            }
+            for (double currentResult : result0)
+                System.out.println(currentResult);
+
+//      Here is the second method, if the user provides three arguments:
+        } else if (args.length == 3) {
+            handleCommandLine(args);
+
+//      Here is the third method, if the user provides "Interactive" as the argument:
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("INterACTive")) {
+            executeInteractively();
+//          To use executeInteractively, both the operation and the numbers must be in word form.
+
+        } else System.out.println("Please provide an operation code and 2 numeric values.");
+    }
+
+
+
+//      Function one's code:
+    static double executeUserInput(char opCode1, double leftVal1, double rightVal1) {
+        double result1;
+        switch (opCode1) {
+            case 'a': result1 = leftVal1 + rightVal1; break;
+            case 's': result1 = leftVal1 - rightVal1; break;
+            case 'm': result1 = leftVal1 * rightVal1; break;
+            case 'd': result1 = (rightVal1 != 0) ? leftVal1 / rightVal1 : 0.0d; break;
+            default: System.out.println(opCode1 + " is an invalid input."); result1 = 0.0d; break;
+        }
+        return result1;
+    }
+
+
+
+//      Function two's code:
+    private static void handleCommandLine(String[] args) {
+        char opCode2 = args[0].charAt(0);
+        double leftVal2 = Double.parseDouble(args[1]);
+        double rightVal2 = Double.parseDouble(args[2]);
+        double result2 = executeUserInput(opCode2, leftVal2, rightVal2);
+        System.out.println(result2);
+    }
+
+
+
+//      Function three's code:
+    static char opCodeFromString(String operationName) {
+        char opCode3 = operationName.charAt(0);
+        return opCode3;
+    }
+
+
+
+//      Function four's code:
+    static double valueFromWord(String word) {
+        String[] numberWord = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+        double value4 = 0d;
+        for (int index4 = 0; index4 < numberWord.length; index4++) {
+            if (word.equals(numberWord[index4])) {
+                value4 = index4;
+                break;
+            }
+        }
+        return value4;
+    }
+
+
+//      Method five's code:
+    static void executeInteractively() {
+        System.out.println("Enter an operation and two numbers: ");
+        Scanner scan5 = new Scanner(System.in);
+        String userInput5 = scan5.nextLine();
+        String[] partsArray5 = userInput5.split(" ");
+        performOperation(partsArray5);
+    }
+
+
+//      Method six's code:
+    private static void performOperation(String[] partsArray6) {
+        char opCode6 = opCodeFromString(partsArray6[0]);
+        double leftVal6 = valueFromWord(partsArray6[1]);
+        double rightVal6 = valueFromWord(partsArray6[2]);
+        double result6 = executeUserInput(opCode6, leftVal6, rightVal6);
+//      Rather than using the System.out.println(result) like we were before, we're going to use a method that converts the opCode array to the operation's symbol.
+        displayResult(opCode6, leftVal6, rightVal6, result6);
+    }
+
+
+//      Method seven's code:
+    private static char symbolFromOpCode(char operationSymbol) {
+        char[] opCodeArray7 = {'a', 's', 'm', 'd'};
+        char[] symbolArray7 = {'+', '-', '*', '/'};
+//      The two above arrays are parallel arrays
+        char symbol7 = ' ';
+        for (int index7 = 0; index7 < opCodeArray7.length; index7++) {
+            if (operationSymbol == opCodeArray7[index7]) {
+                symbol7 = symbolArray7[index7];
+                break;
+            }
+        }
+        return symbol7;
+    }
+
+
+
+//      Method eight's code:
+    private static void displayResult(char opCode8, double leftVal8, double rightVal8, double result8) {
+//      First we'll translate the symbol to char using the above function:
+        char symbol8 = symbolFromOpCode(opCode8);
+        StringBuilder builder8 = new StringBuilder(20);
+        builder8.append(leftVal8); // This is a double
+        builder8.append(" "); // This is a String
+        builder8.append(symbol8); // This is a char
+        builder8.append(" "); // This is a String
+        builder8.append(rightVal8); // This ia double
+        builder8.append(" = "); // This is a String
+        builder8.append(result8); // This is a double
+//      Using StringBuilder means we don't need to convert everything to a string before we use it, which saves time and compiling time.
+//      Note, however, that StringBuilder is not itself a string, so we have to set its value equal to a String variable, then call that variable:
+        String output8 = builder8.toString();
+        System.out.println(output8);
+
+    }
+
+
 
 }
