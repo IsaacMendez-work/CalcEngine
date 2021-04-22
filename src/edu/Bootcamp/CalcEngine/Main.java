@@ -1,4 +1,4 @@
-package edu.Bootcamp.calcengine;
+package edu.Bootcamp.CalcEngine;
 import java.util.Scanner;
 
 public class Main {
@@ -193,11 +193,11 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
     }
 
 //      TO USE THIS APPLICATION FROM THE COMMAND LINE:
-//      First, be sure the calcengine has built. (In IntelliJ the shortcut is Ctrl F9, or Ctrl Fn F9 if your settings have Fn permanently on.
+//      First, be sure the CalcEngine has built. (In IntelliJ the shortcut is Ctrl F9, or Ctrl Fn F9 if your settings have Fn permanently on.
 //      Second, open a terminal and navigate to your CalcEngine directory.
 //      Third, change directories to the out folder, the production folder, and the CalcEngine folder.
-//      Fourth, run: java edu.Bootcamp.calcengine.Main
-//      To add args, just include them after the package name! try java edu.Bootcamp.calcengine.Main s 55 20 or java edu.Bootcamp.calcengine.Main d 99 3
+//      Fourth, run: java edu.Bootcamp.CalcEngine.Main
+//      To add args, just include them after the package name! Try java edu.Bootcamp.CalcEngine.Main s 55 20 or java edu.Bootcamp.CalcEngine.Main d 99 3
 
 
 //      Here we have the method for the switch that we'll be using to calculate.
