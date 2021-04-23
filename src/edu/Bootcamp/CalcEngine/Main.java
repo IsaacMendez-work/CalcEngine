@@ -361,7 +361,7 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
 
 
 
-
+/*
 //      Here, we will be providing the users with some context of the information we're printing out, rather just accept input and display a result. (For example, the whole equation)
     public static void main(String[] args) {
         double[] leftVal0 = {100, 25, 225, 11};
@@ -494,7 +494,131 @@ System.out.println("\nUsing a switch-statement to run a calculation engine.\n");
         String output8 = builder8.toString();
         System.out.println(output8);
     }
+*/
 
 
+
+//      Here we'll be updating displayResult to replace the StringBuilder output with a String.format() output
+    public static void main(String[] args) {
+        double[] leftVal0 = {100, 25, 225, 11};
+        double[] rightVal0 = {50, 92, 17, 3};
+        char[] opCode0 = {'d', 'a', 's', 'm'};
+        double[] result0 = new double[opCode0.length];
+
+//      Here is the first method, if the user provides no arguments:
+        if (args.length == 0) {
+            for (int index0 = 0; index0 < opCode0.length; index0++) {
+                result0[index0] = executeUserInput(opCode0[index0], leftVal0[index0], rightVal0[index0]);
+            }
+            for (double currentResult : result0)
+                System.out.println(currentResult);
+
+//      Here is the second method, if the user provides three arguments:
+        } else if (args.length == 3) {
+            handleCommandLine(args);
+
+//      Here is the third method, if the user provides "Interactive" as the argument:
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("INterACTive")) {
+            executeInteractively();
+//          To use executeInteractively, both the operation and the numbers must be in word form.
+
+        } else System.out.println("Please provide an operation code and 2 numeric values.");
+    }
+
+//      Function one's code:
+    static double executeUserInput(char opCode1, double leftVal1, double rightVal1) {
+        double result1;
+        switch (opCode1) {
+            case 'a': result1 = leftVal1 + rightVal1; break;
+            case 's': result1 = leftVal1 - rightVal1; break;
+            case 'm': result1 = leftVal1 * rightVal1; break;
+            case 'd': result1 = (rightVal1 != 0) ? leftVal1 / rightVal1 : 0.0d; break;
+            default: System.out.println(opCode1 + " is an invalid input."); result1 = 0.0d; break;
+        }
+        return result1;
+    }
+
+//      Function two's code:
+    private static void handleCommandLine(String[] args) {
+        char opCode2 = args[0].charAt(0);
+        double leftVal2 = Double.parseDouble(args[1]);
+        double rightVal2 = Double.parseDouble(args[2]);
+        double result2 = executeUserInput(opCode2, leftVal2, rightVal2);
+        System.out.println(result2);
+    }
+
+//      Function three's code:
+    static char opCodeFromString(String operationName) {
+        char opCode3 = operationName.charAt(0);
+        return opCode3;
+    }
+
+//      Function four's code:
+    static double valueFromWord(String word) {
+        String[] numberWord = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+        double value4 = 0d;
+        for (int index4 = 0; index4 < numberWord.length; index4++) {
+            if (word.equals(numberWord[index4])) {
+                value4 = index4;
+                break;
+            }
+        }
+        return value4;
+    }
+
+//      Method five's code:
+    static void executeInteractively() {
+        System.out.println("Enter an operation and two numbers in words: ");
+        Scanner scan5 = new Scanner(System.in);
+        String userInput5 = scan5.nextLine();
+        String[] partsArray5 = userInput5.split(" ");
+        performOperation(partsArray5);
+    }
+
+//      Method six's code:
+    private static void performOperation(String[] partsArray6) {
+        char opCode6 = opCodeFromString(partsArray6[0]);
+        double leftVal6 = valueFromWord(partsArray6[1]);
+        double rightVal6 = valueFromWord(partsArray6[2]);
+        double result6 = executeUserInput(opCode6, leftVal6, rightVal6);
+        displayResult(opCode6, leftVal6, rightVal6, result6);
+    }
+
+//      Method seven's code:
+    private static char symbolFromOpCode(char operationSymbol) {
+        char[] opCodeArray7 = {'a', 's', 'm', 'd'};
+        char[] symbolArray7 = {'+', '-', '*', '/'};
+        char symbol7 = ' ';
+        for (int index7 = 0; index7 < opCodeArray7.length; index7++) {
+            if (operationSymbol == opCodeArray7[index7]) {
+                symbol7 = symbolArray7[index7];
+                break;
+            }
+        }
+        return symbol7;
+    }
+
+//      Method eight's code:
+    private static void displayResult(char opCode8, double leftVal8, double rightVal8, double result8) {
+        char symbol8 = symbolFromOpCode(opCode8);
+
+//        StringBuilder builder8 = new StringBuilder(20);
+//        builder8.append(leftVal8);
+//        builder8.append(" ");
+//        builder8.append(symbol8);
+//        builder8.append(" ");
+//        builder8.append(rightVal8);
+//        builder8.append(" = ");
+//        builder8.append(result8);
+//        String output8 = builder8.toString();
+//        System.out.println(output8);
+
+        String output8 = String.format("%.2f %c %.2f = %.2f", leftVal8, symbol8, rightVal8, result8);
+//      Here, we're using %f for the float data and %c for the char data.
+//      We're also limiting the number of decimal spaces to round after the second decimal point.
+
+//      To try this, run the code with the argument "interactive", then type something like "divide three seven"
+        System.out.println(output8);
+    }
 
 }
